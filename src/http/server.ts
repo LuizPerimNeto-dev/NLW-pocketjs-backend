@@ -5,11 +5,13 @@ import { getPendingGoalsRoutes } from "./routes/get-pending-goals";
 import { createGoalRoute } from "./routes/create-goals";
 import { getWeekSummaryRoute } from "./routes/get-week-summury";
 import fastifyCors from "@fastify/cors";
+import { deleteGoalRoute } from "./routes/delete-goal";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
 app.register(fastifyCors, {
     origin: '*',
+     methods: ['GET', 'POST', 'DELETE']
 })
 
 app.setValidatorCompiler(validatorCompiler);
@@ -19,6 +21,7 @@ app.register(createGoalRoute)
 app.register(createCompletionRoute)
 app.register(getPendingGoalsRoutes)
 app.register(getWeekSummaryRoute)
+app.register(deleteGoalRoute)
 
 app.listen({
     port: 3333,
